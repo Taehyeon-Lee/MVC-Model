@@ -1,0 +1,25 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset129 AppleSDGothicNeo-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww15220\viewh10460\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 README\
+\
+Shapes PhotoAlbum Design\
+\
+	This PhotoAlbum model represents one page of the album where we can create shapes, resize, move, change color, or take a snapshot of the current page.
+\f1  This model has total 10 classes: 2 interfaces, 1 enum, 1 abstract class, and 6 concrete classes.\
+Two interfaces are IShape and IPhotoAlbum. IShape has methods that relates to shapes like Rectangle and Oval classes. It would get basic information about concrete shape classes(such as get points, get color of the shape, get name of the shape etc) so we would have access to attributes in shapes. IPhotoAlbum interface has methods for PhotoAlbum class and manage a one page of the photo album. It can create shapes, resize, move, change color, and take snapshot of the page. \
+	Enum class called ShapeType represents types of shape we can create in the album and making an abstract class for shapes is efficient because all shape type concrete classes requires points and color, and share similar functionality. Furthermore six concrete classes are: CoordinatePoints, which represent x and y coordinate where the shape is going to be created, Color, color of the shape, Rectangle, one of types of shapes that requires name, and dimensions, Oval, another type of shapes, PhotoAlbum which represents the page of the album and where the actual shape is going to be created and take snapshot of the page as well, and lastly the snapshot class where it would create snapshot that stores ID, time, shapes and descriptions.\
+	Rather than have every attributes inside concrete shape classes, separated coordinate points and color from them to practice separation of concerns. Moreover, created separate Snapshot class because snapshot requires ID that represents date, time , and seconds in very small decimal, it is beneficial to have separate class and get ID.\
+\
+PhotoAlbum Controller and View\
+Controller function as bridge between the model and view. Controller package have one interface and two concrete classes. An interface has one method called run and it takes a model and view and initiates the view based on the data from the model. Two concrete classes in the controller package are: ParseBuilder and PhotoAlbumController. ParseBuilder reads file and parse the file. It stores data from the file into a Hashmap<Integer, String[]>. A key represent an index and value represent a command line. After store the data ParseBuilder class also have a method called processFile which creates model and snapshot based on the data stored in the Hashmap. After the model is updated/created from through ParseBuilder class, PhotoAlbumController class\'a1\'afs run method connects model and view and initiate the view.\
+\
+View\
+There are two types of view implemented for this PhotoAlbum: graphical and web. Graphical view uses Java Swing and draws a snapshot. In order to draw snapshot, It required two classes: GraphicalView and SnapPanel. GraphicalView generally sets up the whole frame and panels that remain the same whole time by setUp method, recognize/implemented clicks by actionPerformed method, and actually draws the whole graphical view by render method. Since graphical view only shows one snapshot at a time I created a separate class called SanpPanel that represents a panel for snapshot. It implements JPanel, thus the class itself represent the panel. It has the method called paintComponent which draws the shapes in the snapshot and draw method that initiate drawing by called .repaint() function. \
+Another view option is web view and I had a WebView class for web view option. It creates whole html text as string and generate the html web view by render method. Since both graphical view and web view has render method, there is an interface called IView. \
+\
+Overall there is a main class that combines everything and run. Main class takes user input and parse it by few key words such as -in, -v or -view, -out and some dimension that represents frame or window size. It takes user input and based on the command calls and instantiates appropriate methods and object and present the view of snapshot.}
